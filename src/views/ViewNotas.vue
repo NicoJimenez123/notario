@@ -12,6 +12,7 @@ const notas = ref<Nota[]>([]);
 const cargarNotas = async () => {
   try {
     notas.value = await repositoryNotas.findAll();
+    console.log('Cargando notas desde el repositorio...');
   } catch (error) {
     console.error('Error al cargar las notas:', error);
   }
@@ -25,16 +26,16 @@ const editarNota = (nota: Nota) => {
 
 const eliminarNota = async (id: number) => {
   try {
-    repositoryNotas.delete(id);
-    cargarNotas(); // Recargar las notas después de eliminar
+    await repositoryNotas.delete(id);
+    await cargarNotas(); // Recargar las notas después de eliminar
   } catch (error) {
     console.error('Error al eliminar la nota:', error);
   }
 };
 
-onBeforeMount(() => {
-  cargarNotas();
-});
+onBeforeMount( async () => {
+  notas.value = await repositoryNotas.findAll();
+})
 </script>
 
 <template>
