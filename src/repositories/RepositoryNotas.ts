@@ -1,4 +1,4 @@
-export default class RepositoryNota {
+export default class RepositoryNotas {
   private notas: Nota[] = [];
   private nextId: number = 1;
 
